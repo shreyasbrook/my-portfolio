@@ -75,10 +75,10 @@ function App() {
             onClick={handleDrawerToggle}
             sx={{ 
               position: 'fixed',
-              top: 16,
-              left: 16,
+              top: isMobile ? 12 : 16,
+              left: isMobile ? 12 : 16,
               zIndex: 1300,
-              p: 0.5,
+              p: isMobile ? 0.25 : 0.5,
               background: 'transparent',
               '&:hover': { background: 'transparent' }
             }}
@@ -91,7 +91,7 @@ function App() {
           onSelect={(id) => scrollToSection(id)}
           activeSection={activeSection}
           profile={{ name: 'Shreyas B Bhat', role: 'Frontend Developer', avatarUrl: '/IMG1.jpeg' }}
-          width={320}
+          width={isMobile ? 280 : 320}
           mobileOpen={mobileOpen}
           onClose={handleDrawerToggle}
           isMobile={isMobile}
@@ -99,9 +99,11 @@ function App() {
         
         <div style={{ 
           flex: 1, 
-          marginLeft: mobileOpen ? 320 : 0,
+          marginLeft: mobileOpen ? (isMobile ? 280 : 320) : 0,
           transition: 'margin-left 0.3s ease-in-out',
-          paddingTop: 80
+          paddingTop: isMobile ? 60 : 80,
+          paddingLeft: isMobile ? 16 : 0,
+          paddingRight: isMobile ? 16 : 0
         }}>
           <div data-section="home">
             <Home />
