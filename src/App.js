@@ -67,7 +67,7 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <CssBaseline />
-      <div className="App" style={{ display: 'flex', backgroundColor: appTheme.palette.background.default }}>
+  <div className="App" style={{ display: 'flex', backgroundColor: appTheme.palette.background.default, minHeight: '100vh', width: '100vw', boxSizing: 'border-box', overflowX: 'hidden' }}>
         {!mobileOpen && (
           <IconButton
             aria-label="open drawer"
@@ -99,11 +99,13 @@ function App() {
         
         <div style={{ 
           flex: 1, 
-          marginLeft: mobileOpen ? (isMobile ? 280 : 320) : 0,
+          marginLeft: !isMobile && mobileOpen ? 320 : 0,
           transition: 'margin-left 0.3s ease-in-out',
           paddingTop: isMobile ? 60 : 80,
-          paddingLeft: isMobile ? 16 : 0,
-          paddingRight: isMobile ? 16 : 0
+          paddingLeft: isMobile ? 8 : 0,
+          paddingRight: isMobile ? 8 : 0,
+          width: '100%',
+          boxSizing: 'border-box',
         }}>
           <div data-section="home">
             <Home />

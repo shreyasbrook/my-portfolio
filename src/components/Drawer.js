@@ -71,23 +71,21 @@ export default function Drawer({
 
   return (
     <Box sx={{ 
-      width: '100vw',
-      maxWidth: '100vw',
+      width: isMobile ? '50vw' : width,
       height: '100vh',
-      minHeight: '100vh',
       borderRight: isMobile ? 0 : 1, 
       borderColor: 'divider', 
       bgcolor: 'background.paper',
       color: 'text.primary',
       position: 'fixed',
       top: 0,
-      left: isMobile ? (mobileOpen ? 0 : '-100%') : (mobileOpen ? 0 : '-100%'),
+      left: isMobile ? (mobileOpen ? 0 : '-50vw') : (mobileOpen ? 0 : '-100%'),
       zIndex: 1200,
       overflow: 'hidden',
       transition: 'left 0.3s ease-in-out',
       boxShadow: isMobile ? 3 : 0
     }} aria-label="Primary navigation" aria-expanded={mobileOpen}>
-  <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
   {/* Header */}
         <Box
           sx={{
@@ -134,22 +132,6 @@ export default function Drawer({
         </Box>
 
         <Divider />
-        {/* Social Links */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, py: 2 }}>
-          {socials.map(social => (
-            <IconButton
-              key={social.id}
-              component="a"
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.id}
-              sx={{ color: 'inherit' }}
-            >
-              {social.icon}
-            </IconButton>
-          ))}
-        </Box>
 
         {/* Navigation */}
         <Box component="nav" role="navigation" aria-label="Sections" sx={{ flex: 1, overflowY: 'auto' }}>
