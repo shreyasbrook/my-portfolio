@@ -71,8 +71,8 @@ export default function Drawer({
 
   return (
     <Box sx={{ 
-      width: isMobile ? '100%' : width, 
-      height: '100vh', 
+  width: '100vw',
+  height: '100vh',
       borderRight: isMobile ? 0 : 1, 
       borderColor: 'divider', 
       bgcolor: 'background.paper',
