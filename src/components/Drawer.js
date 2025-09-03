@@ -86,11 +86,12 @@ export default function Drawer({
       boxShadow: isMobile ? 3 : 0
     }} aria-label="Primary navigation" aria-expanded={mobileOpen}>
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-  {/* Header */}
+        {/* Header (mobile: logo, profile, nav, socials) */}
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'center' : 'flex-start',
             gap: 2,
             px: 2,
             py: 2.5,
@@ -98,107 +99,148 @@ export default function Drawer({
             color: 'text.primary',
           }}
         >
-          <Avatar
-            src={profile.avatarUrl || '/IMG_20250323_232827.jpg'}
-            alt={profile.name}
-            sx={{ 
-              width: 56, 
-              height: 56, 
-              bgcolor: 'transparent', 
-              fontWeight: 600,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              border: `2px solid ${theme.palette.divider}`,
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
-            }}
-          >
-            {(!profile.avatarUrl && profile.name) ? profile.name.slice(0, 1) : null}
-          </Avatar>
-          <Box sx={{ minWidth: 0, flex: 1 }}>
-            <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700 }}>
-              {profile.name}
-            </Typography>
-            <Typography variant="body2" noWrap color="text.secondary">
-              {profile.role}
-            </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+            <Avatar
+              src={profile.avatarUrl || '/IMG_20250323_232827.jpg'}
+              alt={profile.name}
+              sx={{ width: 56, height: 56, bgcolor: 'transparent', fontWeight: 600, backgroundSize: 'cover', backgroundPosition: 'center', border: `2px solid ${theme.palette.divider}`, boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' }}
+            >
+              {(!profile.avatarUrl && profile.name) ? profile.name.slice(0, 1) : null}
+            </Avatar>
+            <Box sx={{ minWidth: 0, flex: 1, ml: 2 }}>
+              <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700 }}>
+                {profile.name}
+              </Typography>
+              <Typography variant="body2" noWrap color="text.secondary">
+                {profile.role}
+              </Typography>
+            </Box>
+            <IconButton
+              onClick={onClose}
+              aria-label="Close drawer"
+              sx={{ color: 'inherit' }}
+            >
+              <CloseIcon />
+            </IconButton>
           </Box>
-          <IconButton
-            onClick={onClose}
-            aria-label="Close drawer"
-            sx={{ color: 'inherit' }}
-          >
-            <CloseIcon />
-          </IconButton>
+          {isMobile && (
+            <>
+              <Divider sx={{ my: 2 }} />
+              {/* Navigation links in header for mobile */}
+              <Box component="nav" role="navigation" aria-label="Sections" sx={{ width: '100%' }}>
+                <List sx={{ py: 0 }}>
+                  {links.map((item, index) => (
+                    <ListItem key={item.id} disablePadding>
+                      <ListItemButton 
+                        onClick={handleSelect(item.id)}
+                        ref={index === 0 ? firstItemRef : undefined}
+                        sx={{
+                          bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
+                          color: activeSection === item.id ? '#fff' : 'text.primary',
+                          '&:hover': {
+                            bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
+                          },
+                          transition: 'all 0.3s ease',
+                          borderRadius: 1,
+                          mx: 1,
+                          mb: 0.5
+                        }}
+                      >
+                        {item.icon ? (
+                          <ListItemIcon sx={{ color: activeSection === item.id ? '#fff' : 'text.secondary' }}>
+                            {item.icon}
+                          </ListItemIcon>
+                        ) : null}
+                        <ListItemText
+                          primary={item.label}
+                          primaryTypographyProps={{ sx: { color: activeSection === item.id ? '#fff' : 'text.primary', fontWeight: activeSection === item.id ? 700 : 500 } }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+              <Divider sx={{ my: 2 }} />
+              {/* Social icons in header for mobile */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, width: '100%' }}>
+                {socials.map((s) => (
+                  <IconButton
+                    key={s.id}
+                    size="small"
+                    color="inherit"
+                    component="a"
+                    href={s.href}
+                    target={s.href?.startsWith('http') ? '_blank' : undefined}
+                    rel={s.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    aria-label={s.id}
+                  >
+                    {s.icon}
+                  </IconButton>
+                ))}
+              </Box>
+            </>
+          )}
         </Box>
-
-        <Divider />
-
-        {/* Navigation */}
-        <Box component="nav" role="navigation" aria-label="Sections" sx={{ flex: 1, overflowY: 'auto' }}>
-          <List sx={{ py: 0 }}>
-            {links.map((item, index) => (
-              <ListItem key={item.id} disablePadding>
-                <ListItemButton 
-                  onClick={handleSelect(item.id)}
-                  ref={index === 0 ? firstItemRef : undefined}
-                  sx={{
-                    bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
-                    color: activeSection === item.id ? '#fff' : 'text.primary',
-                    '&:hover': {
-                      bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
-                    },
-                    transition: 'all 0.3s ease',
-                    borderRadius: 1,
-                    mx: 1,
-                    mb: 0.5
-                  }}
-                >
-                  {item.icon ? (
-                    <ListItemIcon sx={{ 
-                      color: activeSection === item.id ? '#fff' : 'text.secondary' 
-                    }}>
-                      {item.icon}
-                    </ListItemIcon>
-                  ) : null}
-                  <ListItemText
-                    primary={item.label}
-                    primaryTypographyProps={{ 
-                      sx: { 
-                        color: activeSection === item.id ? '#fff' : 'text.primary', 
-                        fontWeight: activeSection === item.id ? 700 : 500 
-                      } 
+        {/* Desktop navigation and socials remain in their places */}
+        {!isMobile && <>
+          <Divider />
+          <Box component="nav" role="navigation" aria-label="Sections" sx={{ flex: 1, overflowY: 'auto' }}>
+            <List sx={{ py: 0 }}>
+              {links.map((item, index) => (
+                <ListItem key={item.id} disablePadding>
+                  <ListItemButton 
+                    onClick={handleSelect(item.id)}
+                    ref={index === 0 ? firstItemRef : undefined}
+                    sx={{
+                      bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
+                      color: activeSection === item.id ? '#fff' : 'text.primary',
+                      '&:hover': {
+                        bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
+                      },
+                      transition: 'all 0.3s ease',
+                      borderRadius: 1,
+                      mx: 1,
+                      mb: 0.5
                     }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-
-        <Divider />
-
-        {/* Footer / Socials */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5 }}>
-          <Typography variant="caption" color="text.secondary">
-            © {new Date().getFullYear()} {profile.name}
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            {socials.map((s) => (
-              <IconButton
-                key={s.id}
-                size="small"
-                color="inherit"
-                component="a"
-                href={s.href}
-                target={s.href?.startsWith('http') ? '_blank' : undefined}
-                rel={s.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                aria-label={s.id}
-              >
-                {s.icon}
-              </IconButton>
-            ))}
+                  >
+                    {item.icon ? (
+                      <ListItemIcon sx={{ color: activeSection === item.id ? '#fff' : 'text.secondary' }}>
+                        {item.icon}
+                      </ListItemIcon>
+                    ) : null}
+                    <ListItemText
+                      primary={item.label}
+                      primaryTypographyProps={{ sx: { color: activeSection === item.id ? '#fff' : 'text.primary', fontWeight: activeSection === item.id ? 700 : 500 } }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
           </Box>
-        </Box>
+          <Divider />
+          {/* Footer / Socials */}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5 }}>
+            <Typography variant="caption" color="text.secondary">
+              © {new Date().getFullYear()} {profile.name}
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              {socials.map((s) => (
+                <IconButton
+                  key={s.id}
+                  size="small"
+                  color="inherit"
+                  component="a"
+                  href={s.href}
+                  target={s.href?.startsWith('http') ? '_blank' : undefined}
+                  rel={s.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  aria-label={s.id}
+                >
+                  {s.icon}
+                </IconButton>
+              ))}
+            </Box>
+          </Box>
+        </>}
       </Box>
     </Box>
   );
