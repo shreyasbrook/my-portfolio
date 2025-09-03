@@ -39,9 +39,9 @@ export default function Drawer({
     { id: 'contact', label: 'Contact', icon: <ContactSupportIcon /> },
   ],
   socials = [
-    { id: 'github', icon: <GitHubIcon />, href: 'https://github.com/Shreyas B Bhat497c' },
-    { id: 'linkedin', icon: <LinkedInIcon />, href: 'www.linkedin.com/in/Shreyas B Bhat-p-2247aa374' },
-    { id: 'email', icon: <MailOutlineIcon />, href: 'mailto:Shreyas B Bhat497cs@gmail.com' },
+    { id: 'github', icon: <GitHubIcon />, href: 'https://github.com/ShreyasBBhat' },
+    { id: 'linkedin', icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/ShreyasBBhat-p-2247aa374' },
+    { id: 'email', icon: <MailOutlineIcon />, href: 'mailto:shreyasbb20@gmail.com' },
   ],
 }) {
   const theme = useTheme();
@@ -71,8 +71,10 @@ export default function Drawer({
 
   return (
     <Box sx={{ 
-  width: '100vw',
-  height: '100vh',
+      width: '100vw',
+      maxWidth: '100vw',
+      height: '100vh',
+      minHeight: '100vh',
       borderRight: isMobile ? 0 : 1, 
       borderColor: 'divider', 
       bgcolor: 'background.paper',
@@ -85,8 +87,8 @@ export default function Drawer({
       transition: 'left 0.3s ease-in-out',
       boxShadow: isMobile ? 3 : 0
     }} aria-label="Primary navigation" aria-expanded={mobileOpen}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        {/* Header */}
+  <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%' }}>
+  {/* Header */}
         <Box
           sx={{
             display: 'flex',
@@ -132,6 +134,22 @@ export default function Drawer({
         </Box>
 
         <Divider />
+        {/* Social Links */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, py: 2 }}>
+          {socials.map(social => (
+            <IconButton
+              key={social.id}
+              component="a"
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.id}
+              sx={{ color: 'inherit' }}
+            >
+              {social.icon}
+            </IconButton>
+          ))}
+        </Box>
 
         {/* Navigation */}
         <Box component="nav" role="navigation" aria-label="Sections" sx={{ flex: 1, overflowY: 'auto' }}>

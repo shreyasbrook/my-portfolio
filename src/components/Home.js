@@ -74,44 +74,12 @@ export default function Home() {
         textAlign: 'center',
         minHeight: '100vh',
         height: { xs: 'auto', sm: '100vh' },
-        backgroundImage: `url("/IMG2.jpeg")`,
-        backgroundSize: '100% 100%',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: { xs: 'scroll', sm: 'fixed' },
+  background: 'linear-gradient(135deg, #0f2027 0%, #2c5364 50%, #1c92d2 100%)',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: 'background-image 2s ease-in-out',
-        imageRendering: 'high-quality',
-        imageRendering: '-webkit-optimize-contrast',
-        imageRendering: 'crisp-edges',
         fontFamily: 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-        '@media (min-resolution: 2dppx)': {
-          backgroundSize: 'cover',
-          imageRendering: 'high-quality',
-        },
-        '@media (min-resolution: 3dppx)': {
-          backgroundSize: 'cover',
-          imageRendering: 'high-quality',
-        },
-        '@keyframes fadeInOut': {
-          '0%, 100%': {
-            opacity: 1,
-          },
-          '50%': {
-            opacity: 0.3,
-          },
-        },
-        '@keyframes blink': {
-          '0%, 50%': {
-            opacity: 1,
-          },
-          '51%, 100%': {
-            opacity: 0,
-          },
-        },
       }}
     >
       {/* Dark overlay for better text readability */}
