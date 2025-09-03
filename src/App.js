@@ -3,6 +3,7 @@ import { useTheme, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 
 import Drawer from './components/Drawer';
@@ -11,6 +12,10 @@ import Home from './components/Home';
 import Projects from './components/Projects';
 import ProjectSDM from './components/ProjectSDM';
 import Contact from './components/Contact';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
 function App() {
   const [activeSection, setActiveSection] = React.useState('home');
@@ -67,50 +72,43 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <CssBaseline />
-  <div className="App" style={{ display: 'flex', backgroundColor: appTheme.palette.background.default, minHeight: '100vh', width: '100vw', boxSizing: 'border-box', overflowX: 'hidden' }}>
-        {!mobileOpen && (
-          <IconButton
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ 
-              position: 'fixed',
-              top: isMobile ? 12 : 16,
-              left: isMobile ? 12 : 16,
-              zIndex: 1300,
-              p: isMobile ? 0.25 : 0.5,
-              background: 'transparent',
-              '&:hover': { background: 'transparent' }
-            }}
-          >
-            <MenuIcon sx={{ color: '#ffffff', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.7))' }} />
-          </IconButton>
-        )}
-
-        <Drawer
-          onSelect={(id) => scrollToSection(id)}
-          activeSection={activeSection}
-          profile={{ name: 'Shreyas B Bhat', role: 'Frontend Developer', avatarUrl: '/IMG1.jpeg' }}
-          width={isMobile ? 280 : 320}
-          mobileOpen={mobileOpen}
-          onClose={handleDrawerToggle}
-          isMobile={isMobile}
-        />
-        
-        <div style={{ 
-          flex: 1, 
-          marginLeft: !isMobile && mobileOpen ? 320 : 0,
-          transition: 'margin-left 0.3s ease-in-out',
-          paddingTop: isMobile ? 60 : 80,
-          paddingLeft: isMobile ? 8 : 0,
-          paddingRight: isMobile ? 8 : 0,
-          width: '100%',
-          boxSizing: 'border-box',
-        }}>
+  <div className="App" style={{ backgroundColor: appTheme.palette.background.default, minHeight: '100vh', width: '100vw', boxSizing: 'border-box', overflowX: 'hidden' }}>
+    {/* Top App Bar for mobile */}
+    {isMobile && (
+  <Box sx={{ width: '100%', bgcolor: '#222', color: '#fff', display: 'flex', alignItems: 'center', px: 2, height: 48, position: 'fixed', top: 0, right: 0, zIndex: 1400 }}>
+        <IconButton aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ color: '#fff', mr: 2 }}>
+          <MenuIcon />
+        </IconButton>
+        <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+          <img src="/IMG1.jpeg" alt="Logo" style={{ width: 36, height: 36, borderRadius: '50%', marginRight: 12 }} />
+          <Box>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#fff', fontSize: 16 }}>Shreyas B Bhat</Typography>
+            <Typography variant="body2" sx={{ color: '#ccc', fontSize: 13 }}>Frontend Developer</Typography>
+          </Box>
+        </Box>
+      </Box>
+    )}
+    {/* Drawer dropdown for mobile */}
+    {isMobile && mobileOpen && (
+      <Box sx={{ position: 'fixed', top: 48, right: 0, width: '70vw', height: 'calc(100vh - 48px)', bgcolor: '#222', color: '#fff', zIndex: 1399, boxShadow: 3, overflowY: 'auto', m: 0, borderTopLeftRadius: 12, borderBottomLeftRadius: 12, transition: 'right 0.3s' }}>
+        <List>
+          {['home', 'about', 'projects', 'contact'].map((section) => (
+            <ListItem key={section} disablePadding>
+              <ListItemButton onClick={() => { scrollToSection(section); setMobileOpen(false); }} sx={{ color: activeSection === section ? '#fff' : '#ccc', fontWeight: activeSection === section ? 700 : 500 }}>
+                <ListItemText primary={section.charAt(0).toUpperCase() + section.slice(1)} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    )}
+    {/* Main content: only show when drawer is closed on mobile */}
+  <Box sx={{ pt: isMobile ? 48 : 0, width: '100%', m: 0 }}>
+      {(!isMobile || !mobileOpen) && (
+        <>
           <div data-section="home">
             <Home />
           </div>
-
           <div data-section="about">
             <About
               name="Shreyas B Bhat"
@@ -119,12 +117,10 @@ function App() {
               onDownloadResume={() => console.log('Download resume clicked')}
             />
           </div>
-
           <div data-section="projects">
             <Projects />
             <ProjectSDM />
           </div>
-
           <div data-section="contact">
             <Contact
               onPhone={() => (window.location.href = 'tel:+91 9880339147')}
@@ -132,8 +128,10 @@ function App() {
               onLinkedIn={() => window.open('https://www.linkedin.com/in/Shreyas B Bhat-p-2247aa374', '_blank', 'noopener,noreferrer')}
             />
           </div>
-        </div>
-      </div>
+        </>
+      )}
+    </Box>
+  </div>
     </ThemeProvider>
   );
 }

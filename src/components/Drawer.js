@@ -90,97 +90,95 @@ export default function Drawer({
         <Box
           sx={{
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            alignItems: isMobile ? 'center' : 'flex-start',
-            gap: 2,
+            flexDirection: isMobile ? 'row' : 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             px: 2,
-            py: 2.5,
-            bgcolor: 'transparent',
+            py: 2,
+            bgcolor: isMobile ? '#222' : 'transparent',
             color: 'text.primary',
+            borderBottom: isMobile ? '1px solid #333' : 'none',
           }}
         >
-          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-            <Avatar
-              src={profile.avatarUrl || '/IMG_20250323_232827.jpg'}
-              alt={profile.name}
-              sx={{ width: 56, height: 56, bgcolor: 'transparent', fontWeight: 600, backgroundSize: 'cover', backgroundPosition: 'center', border: `2px solid ${theme.palette.divider}`, boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' }}
-            >
-              {(!profile.avatarUrl && profile.name) ? profile.name.slice(0, 1) : null}
-            </Avatar>
-            <Box sx={{ minWidth: 0, flex: 1, ml: 2 }}>
-              <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700 }}>
-                {profile.name}
-              </Typography>
-              <Typography variant="body2" noWrap color="text.secondary">
-                {profile.role}
-              </Typography>
-            </Box>
+          {/* Left: Avatar */}
+          <Avatar
+            src={profile.avatarUrl || '/IMG_20250323_232827.jpg'}
+            alt={profile.name}
+            sx={{ width: 48, height: 48, bgcolor: 'transparent', fontWeight: 600, backgroundSize: 'cover', backgroundPosition: 'center', border: `2px solid ${theme.palette.divider}`, boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)', mr: 2 }}
+          >
+            {(!profile.avatarUrl && profile.name) ? profile.name.slice(0, 1) : null}
+          </Avatar>
+          {/* Center: Name and Role stacked */}
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700, color: '#fff', fontSize: 18 }}>
+              {profile.name}
+            </Typography>
+            <Typography variant="body2" noWrap sx={{ color: '#ccc', fontSize: 14 }}>
+              {profile.role}
+            </Typography>
+          </Box>
+          {/* Right: Social icons */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {socials.map((s) => (
+              <IconButton
+                key={s.id}
+                size="small"
+                color="inherit"
+                component="a"
+                href={s.href}
+                target={s.href?.startsWith('http') ? '_blank' : undefined}
+                rel={s.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={s.id}
+                sx={{ color: '#fff' }}
+              >
+                {s.icon}
+              </IconButton>
+            ))}
             <IconButton
               onClick={onClose}
               aria-label="Close drawer"
-              sx={{ color: 'inherit' }}
+              sx={{ color: '#fff', ml: 1 }}
             >
               <CloseIcon />
             </IconButton>
           </Box>
-          {isMobile && (
-            <>
-              <Divider sx={{ my: 2 }} />
-              {/* Navigation links in header for mobile */}
-              <Box component="nav" role="navigation" aria-label="Sections" sx={{ width: '100%' }}>
-                <List sx={{ py: 0 }}>
-                  {links.map((item, index) => (
-                    <ListItem key={item.id} disablePadding>
-                      <ListItemButton 
-                        onClick={handleSelect(item.id)}
-                        ref={index === 0 ? firstItemRef : undefined}
-                        sx={{
-                          bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
-                          color: activeSection === item.id ? '#fff' : 'text.primary',
-                          '&:hover': {
-                            bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
-                          },
-                          transition: 'all 0.3s ease',
-                          borderRadius: 1,
-                          mx: 1,
-                          mb: 0.5
-                        }}
-                      >
-                        {item.icon ? (
-                          <ListItemIcon sx={{ color: activeSection === item.id ? '#fff' : 'text.secondary' }}>
-                            {item.icon}
-                          </ListItemIcon>
-                        ) : null}
-                        <ListItemText
-                          primary={item.label}
-                          primaryTypographyProps={{ sx: { color: activeSection === item.id ? '#fff' : 'text.primary', fontWeight: activeSection === item.id ? 700 : 500 } }}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-              <Divider sx={{ my: 2 }} />
-              {/* Social icons in header for mobile */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, width: '100%' }}>
-                {socials.map((s) => (
-                  <IconButton
-                    key={s.id}
-                    size="small"
-                    color="inherit"
-                    component="a"
-                    href={s.href}
-                    target={s.href?.startsWith('http') ? '_blank' : undefined}
-                    rel={s.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    aria-label={s.id}
-                  >
-                    {s.icon}
-                  </IconButton>
-                ))}
-              </Box>
-            </>
-          )}
         </Box>
+        {/* Navigation links below header for mobile */}
+        {isMobile && (
+          <Box component="nav" role="navigation" aria-label="Sections" sx={{ width: '100%', bgcolor: '#222' }}>
+            <List sx={{ py: 0 }}>
+              {links.map((item, index) => (
+                <ListItem key={item.id} disablePadding>
+                  <ListItemButton 
+                    onClick={handleSelect(item.id)}
+                    ref={index === 0 ? firstItemRef : undefined}
+                    sx={{
+                      bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
+                      color: activeSection === item.id ? '#fff' : 'text.primary',
+                      '&:hover': {
+                        bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
+                      },
+                      transition: 'all 0.3s ease',
+                      borderRadius: 1,
+                      mx: 1,
+                      mb: 0.5
+                    }}
+                  >
+                    {item.icon ? (
+                      <ListItemIcon sx={{ color: activeSection === item.id ? '#fff' : 'text.secondary' }}>
+                        {item.icon}
+                      </ListItemIcon>
+                    ) : null}
+                    <ListItemText
+                      primary={item.label}
+                      primaryTypographyProps={{ sx: { color: activeSection === item.id ? '#fff' : 'text.primary', fontWeight: activeSection === item.id ? 700 : 500 } }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        )}
         {/* Desktop navigation and socials remain in their places */}
         {!isMobile && <>
           <Divider />
