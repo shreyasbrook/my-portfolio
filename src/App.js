@@ -75,10 +75,7 @@ function App() {
   <div className="App" style={{ backgroundColor: appTheme.palette.background.default, minHeight: '100vh', width: '100vw', boxSizing: 'border-box', overflowX: 'hidden' }}>
     {/* Top App Bar for mobile */}
     {isMobile && (
-  <Box sx={{ width: '100%', bgcolor: '#222', color: '#fff', display: 'flex', alignItems: 'center', px: 2, height: 48, position: 'fixed', top: 0, right: 0, zIndex: 1400 }}>
-        <IconButton aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ color: '#fff', mr: 2 }}>
-          <MenuIcon />
-        </IconButton>
+      <Box sx={{ width: '100%', bgcolor: '#222', color: '#fff', display: 'flex', alignItems: 'center', px: 2, height: 48, position: 'fixed', top: 0, right: 0, zIndex: 1400 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
           <img src="/IMG1.jpeg" alt="Logo" style={{ width: 36, height: 36, borderRadius: '50%', marginRight: 12 }} />
           <Box>
@@ -86,6 +83,9 @@ function App() {
             <Typography variant="body2" sx={{ color: '#ccc', fontSize: 13 }}>Frontend Developer</Typography>
           </Box>
         </Box>
+        <IconButton aria-label="open drawer" edge="end" onClick={handleDrawerToggle} sx={{ color: '#fff', ml: 2 }}>
+          <MenuIcon />
+        </IconButton>
       </Box>
     )}
     {/* Drawer dropdown for mobile */}
@@ -103,7 +103,7 @@ function App() {
       </Box>
     )}
     {/* Main content: only show when drawer is closed on mobile */}
-  <Box sx={{ pt: isMobile ? 48 : 0, width: '100%', m: 0 }}>
+  <Box sx={{ pt: 0, width: '100%', m: 0 }}>
       {(!isMobile || !mobileOpen) && (
         <>
           <div data-section="home">
