@@ -15,7 +15,7 @@ export default function About({
   summary = `As a passionate Front-End Developer with a solid foundation in Computer Science, I bring hands-on experience in building responsive, user-centric web applications using React, HTML, CSS, and JavaScript. I specialize in crafting intuitive interfaces and deploying polished projects via GitHub, with recent work including a functional website clone and customized UI components using Material UI.
 My approach is rooted in practical problem-solving and attention to detail, ensuring that every element contributes to a seamless user experience. I'm deeply curious about emerging technologies like AI and cloud computing, and I thrive in collaborative environments where I can contribute innovative solutions while continuously learning from experienced teams.
 Driven by a desire to create meaningful digital experiences, I'm eager to join dynamic development teams where I can apply my technical skills, creativity, and growth mindset to deliver impactful front-end solutions.`,
-  photoUrl = '',
+  photoUrl = '/IMG1.jpeg',
   skills = [
     'React',
     'JavaScript',
@@ -96,11 +96,14 @@ Driven by a desire to create meaningful digital experiences, I'm eager to join d
             borderRadius: 2,
             bgcolor: 'background.paper',
             overflow: 'hidden',
-            '&:hover': { boxShadow: 2, transition: 'box-shadow 0.3s ease' }
+            '&:hover': { boxShadow: 2, transition: 'box-shadow 0.3s ease' },
+            maxWidth: '100%',
+            overflowX: 'auto',
           }}>
             <Box
               component="table"
               sx={{
+                minWidth: 600,
                 width: '100%',
                 borderCollapse: 'collapse',
                 '& th, & td': {
@@ -165,13 +168,13 @@ Driven by a desire to create meaningful digital experiences, I'm eager to join d
                   <Box component="td">
                   VSS International School<br />
                     <Typography variant="caption" color="text.secondary">
-                    Nagadevnahalli, Kengeri, Bengalore, Karnataka, with the Pincode 560060
+                    Nagadevnahalli, Kengeri, Bengalore, Karnataka,560060
                     </Typography>
                   </Box>
                   <Box component="td">2023</Box>
                   <Box component="td">
                     <Chip 
-                      label="78.92%" 
+                      label="79%" 
                       color="primary" 
                       variant="outlined"
                       size="small"

@@ -74,7 +74,7 @@ export default function Home() {
         textAlign: 'center',
         minHeight: '100vh',
         height: { xs: 'auto', sm: '100vh' },
-  background: 'linear-gradient(135deg, #0f2027 0%, #2c5364 50%, #1c92d2 100%)',
+        background: 'linear-gradient(135deg, #0f2027 0%, #2c5364 50%, #1c92d2 100%)',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
