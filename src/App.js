@@ -145,20 +145,6 @@ function App() {
               </IconButton>
             </Box>
           )}
-          {/* Drawer dropdown for mobile */}
-          {isMobile && mobileOpen && (
-            <Box sx={{ position: 'fixed', top: 48, right: 0, width: '70vw', height: 'calc(100vh - 48px)', bgcolor: '#222', color: '#fff', zIndex: 1399, boxShadow: 3, overflowY: 'auto', m: 0, borderTopLeftRadius: 12, borderBottomLeftRadius: 12, transition: 'right 0.3s' }}>
-              <List>
-                {['home', 'about', 'projects', 'contact'].map((section) => (
-                  <ListItem key={section} disablePadding>
-                    <ListItemButton onClick={() => { scrollToSection(section); setMobileOpen(false); }} sx={{ color: activeSection === section ? '#fff' : '#ccc', fontWeight: activeSection === section ? 700 : 500 }}>
-                      <ListItemText primary={section.charAt(0).toUpperCase() + section.slice(1)} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          )}
           {/* Home Section */}
           <Box sx={{ pt: 0, width: '100%', m: 0 }}>
             {(!isMobile || !mobileOpen) && (
@@ -188,6 +174,22 @@ function App() {
               </>
             )}
           </Box>
+          {/* Floating Bottom Navigation for Mobile */}
+          {isMobile && (
+            <Box sx={{ position: 'fixed', bottom: 0, left: 0, width: '100%', bgcolor: '#222', color: '#fff', zIndex: 1500, display: 'flex', justifyContent: 'space-around', py: 1, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+              {['home', 'about', 'projects', 'contact'].map((section) => (
+                <IconButton
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  sx={{ color: activeSection === section ? '#ff9800' : '#fff', flexDirection: 'column', alignItems: 'center' }}
+                >
+                  <Typography variant="caption" sx={{ fontWeight: activeSection === section ? 700 : 400 }}>
+                    {section.charAt(0).toUpperCase() + section.slice(1)}
+                  </Typography>
+                </IconButton>
+              ))}
+            </Box>
+          )}
         </main>
       </div>
     </ThemeProvider>
