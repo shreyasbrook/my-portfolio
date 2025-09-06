@@ -6,7 +6,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import WorkIcon from '@mui/icons-material/Work';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import useMediaQuery from '@mui/material/useMediaQuery';
-const isMobile = useMediaQuery('(max-width:600px)');
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -21,10 +20,44 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Drawer from './Drawer';
 
-return (
+export default function MobileLanding() {
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  return (
     <>
-      {/* Drawer and menu button removed as requested */}
+      <AppBar position="static" sx={{ bgcolor: '#1976d2' }}>
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            My Portfolio
+          </Typography>
+          <Button color="inherit" startIcon={<HomeIcon />} href="#home">
+            Home
+          </Button>
+          <Button color="inherit" startIcon={<InfoIcon />} href="#about">
+            About
+          </Button>
+          <Button color="inherit" startIcon={<WorkIcon />} href="#projects">
+            Projects
+          </Button>
+          <Button color="inherit" startIcon={<CopyrightIcon />} href="#contact">
+            Contact
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      {isMobile && (
+        <Drawer
+          onSelect={scrollToSection}
+          activeSection={'home'}
+          width={300}
+          mobileOpen={true}
+          onClose={() => {}}
+          isMobile={true}
+          profile={{ name: 'Shreyas B Bhat', role: 'Frontend Developer', avatarUrl: '/IMG1.jpeg' }}
+        />
+      )}
 
       <Box sx={{ 
         minHeight: '100vh',
@@ -107,7 +140,7 @@ return (
               </Typography>
               <Button
                 component="a"
-                href="https://wa.me/9880339147"
+                href="https://wa.me/9980420944"
                 target="_blank"
                 variant="contained"
                 size="large"
@@ -121,3 +154,4 @@ return (
       </Box>
     </>
   );
+}
