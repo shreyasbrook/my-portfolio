@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
@@ -7,7 +7,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -18,33 +17,23 @@ import WorkIcon from '@mui/icons-material/Work';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
+import Drawer from '@mui/material/Drawer';
 
-export default function Drawer({
-  onSelect,
-  activeSection = 'home',
-  width = 300,
-  mobileOpen = false,
-  onClose,
-  isMobile = false,
-  profile = {
-    name: 'Shreyas B Bhat',
-    role: 'Frontend Developer',
-    avatarUrl: '',
-  },
-  links = [
+function DrawerComponent({ isMobile, open, onClose, onSelect, profile = {}, activeSection }) {
+  const theme = useTheme();
+  const firstItemRef = useRef(null);
+
+  const links = [
     { id: 'home', label: 'Home', icon: <HomeIcon /> },
     { id: 'about', label: 'About', icon: <InfoIcon /> },
     { id: 'projects', label: 'Projects', icon: <WorkIcon /> },
-    { id: 'contact', label: 'Contact', icon: <ContactSupportIcon /> },
-  ],
-  socials = [
-  { id: 'github', icon: <GitHubIcon />, href: 'https://github.com/shreyasbrook' },
-  { id: 'linkedin', icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/shreyas-b-bhat-1391a1371' },
-  { id: 'email', icon: <MailOutlineIcon />, href: 'mailto:shreyasbb20@gmail.com' },
-  ],
-}) {
-  const theme = useTheme();
-  const firstItemRef = useRef(null);
+    { id: 'contact', label: 'Contact', icon: <ContactSupportIcon /> }
+  ];
+  const socials = [
+    { id: 'github', icon: <GitHubIcon />, href: 'https://github.com/shreyasbrook' },
+    { id: 'linkedin', icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/shreyas-b-bhat-1391a1371' },
+    { id: 'email', icon: <MailOutlineIcon />, href: 'mailto:shreyasbb20@gmail.com' }
+  ];
 
   const handleSelect = (id) => () => {
     onSelect && onSelect(id);
@@ -57,116 +46,102 @@ export default function Drawer({
     }, 100);
   };
 
-  useEffect(() => {
-    // Focus first item when drawer opens, or on desktop where it acts as a side nav
-    if (mobileOpen || !isMobile) {
-      setTimeout(() => {
-        if (firstItemRef.current) {
-          firstItemRef.current.focus();
-        }
-      }, 0);
-    }
-  }, [mobileOpen, isMobile]);
-
   return (
-    <Box sx={{ 
-      width: width,
-      height: '100vh',
-      borderRight: 1, 
-      borderColor: 'divider', 
-      bgcolor: 'background.paper',
-      color: 'text.primary',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      zIndex: 1200,
-      overflow: 'hidden',
-      boxShadow: 0,
-      opacity: mobileOpen ? 1 : 0,
-      transform: mobileOpen ? 'translateX(0)' : 'translateX(-100%)',
-      pointerEvents: mobileOpen ? 'auto' : 'none',
-      transition: 'opacity 0.8s cubic-bezier(0.77,0,0.175,1), transform 0.8s cubic-bezier(0.77,0,0.175,1)',
-    }} aria-label="Primary navigation" aria-expanded={mobileOpen}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        {/* Always render desktop header and navigation */}
-        <>
-          {/* Desktop header: only avatar, name, role, and Close icon */}
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              px: 2,
-              py: 2,
-              bgcolor: '#222',
-              color: 'text.primary',
-              borderBottom: '1px solid #333',
-            }}
+    <Drawer
+      anchor={isMobile ? "bottom" : "left"}
+      open={open}
+      onClose={onClose}
+      variant={isMobile ? "temporary" : "permanent"}
+      PaperProps={{
+        sx: {
+          bgcolor: "#222",
+          boxShadow: isMobile ? "none" : "2px 0 8px rgba(0,0,0,0.2)",
+          width: isMobile ? "100vw" : 320,
+          marginLeft: 0,
+          // Remove extra space in desktop view
+          ...(isMobile ? {} : { minWidth: 0, maxWidth: 320, padding: 0 }),
+        },
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          height: "100vh",
+          bgcolor: "#222",
+          color: "#fff",
+          boxShadow: isMobile ? "none" : "2px 0 8px rgba(0,0,0,0.2)",
+          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+          position: isMobile ? "fixed" : "relative",
+          left: 0,
+          top: 0,
+          zIndex: 1300,
+        }}
+      >
+        {/* Header */}
+        <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 2, bgcolor: '#222', color: 'text.primary', borderBottom: '1px solid #333' }}>
+          <Avatar
+            src={'/IMG1.jpeg'}
+            alt={profile.name || ''}
+            sx={{ width: 48, height: 48, bgcolor: 'transparent', fontWeight: 600, backgroundSize: 'cover', backgroundPosition: 'center', border: `2px solid #444`, boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)', mr: 2 }}
           >
-            {/* Left: Avatar */}
-            <Avatar
-              src={'/IMG1.jpeg'}
-              alt={profile.name}
-              sx={{ width: 48, height: 48, bgcolor: 'transparent', fontWeight: 600, backgroundSize: 'cover', backgroundPosition: 'center', border: `2px solid ${theme.palette.divider}`, boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)', mr: 2 }}
+            {(!profile.avatarUrl && profile.name) ? profile.name.slice(0, 1) : null}
+          </Avatar>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700, color: '#fff', fontSize: 18 }}>
+              {profile.name}
+            </Typography>
+            <Typography variant="body2" noWrap sx={{ color: '#ccc', fontSize: 14 }}>
+              {profile.role}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <IconButton
+              onClick={onClose}
+              aria-label="Close drawer"
+              sx={{ color: '#fff' }}
             >
-              {(!profile.avatarUrl && profile.name) ? profile.name.slice(0, 1) : null}
-            </Avatar>
-            {/* Center: Name and Role stacked */}
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Typography variant="subtitle1" noWrap sx={{ fontWeight: 700, color: '#fff', fontSize: 18 }}>
-                {profile.name}
-              </Typography>
-              <Typography variant="body2" noWrap sx={{ color: '#ccc', fontSize: 14 }}>
-                {profile.role}
-              </Typography>
-            </Box>
-            {/* Right: Only Close icon */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <IconButton
-                onClick={onClose}
-                aria-label="Close drawer"
-                sx={{ color: '#fff' }}
-              >
-                <CloseIcon />
-              </IconButton>
-            </Box>
+              <CloseIcon />
+            </IconButton>
           </Box>
-          {/* Navigation links below header for desktop */}
-          <Box component="nav" role="navigation" aria-label="Sections" sx={{ width: '100%', bgcolor: '#222', flex: 1, overflowY: 'auto' }}>
-            <List sx={{ py: 0 }}>
-              {links.map((item, index) => (
-                <ListItem key={item.id} disablePadding>
-                  <ListItemButton 
-                    onClick={handleSelect(item.id)}
-                    ref={index === 0 ? firstItemRef : undefined}
-                    sx={{
-                      bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
-                      color: activeSection === item.id ? '#fff' : 'text.primary',
-                      '&:hover': {
-                        bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
-                      },
-                      transition: 'all 0.3s ease',
-                      borderRadius: 1,
-                      mx: 1,
-                      mb: 0.5
-                    }}
-                  >
-                    {item.icon ? (
-                      <ListItemIcon sx={{ color: activeSection === item.id ? '#fff' : 'text.secondary' }}>
-                        {item.icon}
-                      </ListItemIcon>
-                    ) : null}
-                    <ListItemText
-                      primary={item.label}
-                      primaryTypographyProps={{ sx: { color: activeSection === item.id ? '#fff' : 'text.primary', fontWeight: activeSection === item.id ? 700 : 500 } }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-          {/* Footer / Socials */}
+        </Box>
+        {/* Navigation links */}
+        <Box component="nav" role="navigation" aria-label="Sections" sx={{ width: '100%', bgcolor: '#222', flex: 1, overflowY: 'auto' }}>
+          <List sx={{ py: 0 }}>
+            {links.map((item, index) => (
+              <ListItem key={item.id} disablePadding>
+                <ListItemButton 
+                  onClick={handleSelect(item.id)}
+                  ref={index === 0 ? firstItemRef : undefined}
+                  sx={{
+                    bgcolor: activeSection === item.id ? 'primary.main' : 'transparent',
+                    color: activeSection === item.id ? '#fff' : 'text.primary',
+                    '&:hover': {
+                      bgcolor: activeSection === item.id ? 'primary.dark' : 'action.hover',
+                    },
+                    transition: 'all 0.3s ease',
+                    borderRadius: 1,
+                    mx: 1,
+                    mb: 0.5
+                  }}
+                >
+                  {item.icon ? (
+                    <ListItemIcon sx={{ color: activeSection === item.id ? '#fff' : 'text.secondary' }}>
+                      {item.icon}
+                    </ListItemIcon>
+                  ) : null}
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{ sx: { color: activeSection === item.id ? '#fff' : 'text.primary', fontWeight: activeSection === item.id ? 700 : 500 } }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+        {/* Footer / Socials: Only show on desktop */}
+        {!isMobile && (
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5 }}>
             <Typography variant="caption" color="text.secondary">
               © {new Date().getFullYear()} {profile.name}
@@ -188,42 +163,11 @@ export default function Drawer({
               ))}
             </Box>
           </Box>
-  </>
-        {/* Mobile bottom navigation */}
-        {isMobile ? (
-          <Box sx={{
-            position: 'fixed',
-            left: '50%',
-            bottom: 24,
-            transform: 'translateX(-50%)',
-            bgcolor: 'background.paper',
-            borderRadius: 4,
-            boxShadow: 6,
-            px: 2,
-            py: 1,
-            display: 'flex',
-            alignItems: 'center',
-            zIndex: 1400,
-            minWidth: 320,
-            maxWidth: '90vw',
-          }}>
-            {links.map((item) => (
-              <IconButton
-                key={item.id}
-                color={activeSection === item.id ? 'primary' : 'default'}
-                onClick={handleSelect(item.id)}
-                sx={{ mx: 1 }}
-              >
-                {item.icon}
-              </IconButton>
-            ))}
-            {/* Floating action button */}
-            <IconButton color="primary" sx={{ ml: 2, bgcolor: 'primary.main', color: '#fff', boxShadow: 3, borderRadius: '50%', width: 48, height: 48 }}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        ) : null}
+        )}
       </Box>
-    </Box>
+    </Drawer>
   );
 }
+
+export default DrawerComponent;
+// ...existing code up to first export default DrawerComponent;
