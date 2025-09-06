@@ -20,7 +20,6 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Drawer from './Drawer';
 
 export default function MobileLanding() {
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -46,18 +45,6 @@ export default function MobileLanding() {
           </Button>
         </Toolbar>
       </AppBar>
-
-      {isMobile && (
-        <Drawer
-          onSelect={scrollToSection}
-          activeSection={'home'}
-          width={300}
-          mobileOpen={true}
-          onClose={() => {}}
-          isMobile={true}
-          profile={{ name: 'Shreyas B Bhat', role: 'Frontend Developer', avatarUrl: '/IMG1.jpeg' }}
-        />
-      )}
 
       <Box sx={{ 
         minHeight: '100vh',
