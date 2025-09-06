@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import WorkIcon from '@mui/icons-material/Work';
@@ -32,7 +33,8 @@ function DrawerComponent({ isMobile, open, onClose, onSelect, profile = {}, acti
   const socials = [
     { id: 'github', icon: <GitHubIcon />, href: 'https://github.com/shreyasbrook' },
     { id: 'linkedin', icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/shreyas-b-bhat-1391a1371' },
-    { id: 'email', icon: <MailOutlineIcon />, href: 'mailto:shreyasbb20@gmail.com' }
+    { id: 'email', icon: <MailOutlineIcon />, href: 'mailto:shreyasbb20@gmail.com' },
+    { id: 'instagram', icon: <InstagramIcon />, href: 'https://instagram.com/shreyas_b_bhat' }
   ];
 
   const handleSelect = (id) => () => {

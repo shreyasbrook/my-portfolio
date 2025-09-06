@@ -8,6 +8,11 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import WorkIcon from '@mui/icons-material/Work';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 
 import Drawer from './components/Drawer';
 import About from './components/about';
@@ -131,28 +136,35 @@ function App() {
             <Box sx={{ position: 'fixed', top: 0, right: 0, width: '100vw', height: '100vh', bgcolor: 'background.paper', zIndex: 2000, boxShadow: 6, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 0 }}>
               {/* X icon to close drawer */}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', px: 2, py: 2 }}>
-                <IconButton aria-label="close drawer" onClick={handleMobileDrawerToggle} sx={{ color: '#222' }}>
-                  <span style={{ fontSize: 28, fontWeight: 'bold', lineHeight: 1 }}>×</span>
+                <IconButton aria-label="close drawer" onClick={handleMobileDrawerToggle} sx={{ color: '#fff' }}>
+                  <span style={{ fontSize: 28, fontWeight: 'bold', lineHeight: 1, color: '#fff' }}>×</span>
                 </IconButton>
               </Box>
               {/* Navigation Links Only */}
               <Box sx={{ flex: 1, py: 2 }}>
                 {[
-                  { id: 'home', label: 'Home' },
-                  { id: 'about', label: 'About' },
-                  { id: 'projects', label: 'Projects' },
-                  { id: 'projectsdm', label: 'ProjectSDM' },
-                  { id: 'contact', label: 'Contact' },
-                ].map((item) => (
-                  <Box key={item.id} sx={{ px: 2, py: 1 }}>
-                    <Typography
-                      variant="body1"
-                      sx={{ fontWeight: activeSection === item.id ? 700 : 400, color: activeSection === item.id ? 'primary.main' : '#fff', cursor: 'pointer', display: 'inline-block' }}
-                      onClick={() => scrollToSection(item.id)}
-                    >
-                      {item.label}
-                    </Typography>
-                  </Box>
+                  { id: 'home', label: 'Home', icon: <HomeIcon sx={{ mr: 1, color: activeSection === 'home' ? 'primary.main' : '#fff' }} /> },
+                  { id: 'about', label: 'About', icon: <InfoIcon sx={{ mr: 1, color: activeSection === 'about' ? 'primary.main' : '#fff' }} /> },
+                  { id: 'projects', label: 'Projects', icon: <WorkIcon sx={{ mr: 1, color: activeSection === 'projects' ? 'primary.main' : '#fff' }} /> },
+                  { id: 'contact', label: 'Contact', icon: <ContactSupportIcon sx={{ mr: 1, color: activeSection === 'contact' ? 'primary.main' : '#fff' }} /> },
+                ].map((item, idx, arr) => (
+                  <React.Fragment key={item.id}>
+                    <Box sx={{ px: 2, py: 1.5, display: 'flex', alignItems: 'center', mt: idx === 0 ? 3 : 0 }}>
+                      {item.icon}
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: activeSection === item.id ? 700 : 500, fontSize: 22, color: activeSection === item.id ? '#9c27b0' : '#fff', cursor: 'pointer', display: 'inline-block', transition: 'color 0.3s, font-weight 0.3s' }}
+                        onClick={() => scrollToSection(item.id)}
+                      >
+                        {item.label}
+                      </Typography>
+                    </Box>
+                    {idx < arr.length - 1 && (
+                      <Box sx={{ width: '100%', px: 2 }}>
+                        <hr style={{ border: 'none', borderBottom: '1px solid #333', margin: 0 }} />
+                      </Box>
+                    )}
+                  </React.Fragment>
                 ))}
               </Box>
               {/* Footer */}
@@ -169,6 +181,9 @@ function App() {
                   </IconButton>
                   <IconButton size="small" color="inherit" component="a" href="mailto:shreyasbb20@gmail.com" aria-label="email">
                     <MailOutlineIcon />
+                  </IconButton>
+                  <IconButton size="small" color="inherit" component="a" href="https://instagram.com/shreyas_b_bhat" target="_blank" rel="noopener noreferrer" aria-label="instagram">
+                    <InstagramIcon />
                   </IconButton>
                 </Box>
               </Box>
@@ -207,6 +222,7 @@ function App() {
                 <About
                   name="Shreyas B Bhat"
                   role="Frontend Developer"
+                  email={<a href="mailto:shreyasbb20@gmail.com" style={{ color: '#9c27b0', textDecoration: 'underline' }}>shreyasbb20@gmail.com</a>}
                   onContact={() => scrollToSection('contact')}
                   onDownloadResume={() => console.log('Download resume clicked')}
                 />
