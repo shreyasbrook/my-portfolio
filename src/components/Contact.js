@@ -160,10 +160,10 @@ export default function Contact({ onPhone, onEmail, onLinkedIn }) {
                         <LocationOnIcon sx={{ color: 'white' }} />
                       </Box>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#424242' }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#fff' }}>
                           Location:
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: '#fff' }}>
                           Udaya Layout Bengalore, Karnataka,560060
                         </Typography>
                       </Box>
@@ -174,10 +174,10 @@ export default function Contact({ onPhone, onEmail, onLinkedIn }) {
                         <EmailIcon sx={{ color: 'white' }} />
                       </Box>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#424242' }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#fff' }}>
                           Email:
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: '#fff' }}>
                           <Button 
                             variant="text" 
                             sx={{ p: 0, minWidth: 'auto', textTransform: 'none' }}
@@ -194,10 +194,10 @@ export default function Contact({ onPhone, onEmail, onLinkedIn }) {
                         <PhoneIcon sx={{ color: 'white' }} />
                       </Box>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#424242' }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#fff' }}>
                           Call:
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: '#fff' }}>
                           +91 9980420944
                         </Typography>
                       </Box>
@@ -208,10 +208,10 @@ export default function Contact({ onPhone, onEmail, onLinkedIn }) {
                         <WhatsAppIcon sx={{ color: 'white' }} />
                       </Box>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#424242' }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#fff' }}>
                           WhatsApp:
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: '#fff' }}>
                           <Button 
                             variant="text" 
                             sx={{ p: 0, minWidth: 'auto', textTransform: 'none' }}

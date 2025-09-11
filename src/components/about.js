@@ -64,7 +64,7 @@ Driven by a desire to create meaningful digital experiences, I'm eager to join d
                 Contact Me
               </Button>
               <Button variant="outlined" color="primary" onClick={onDownloadResume}>
-                Download Resume
+                View Resume
               </Button>
             </Stack>
           </Grid>

@@ -15,6 +15,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 
 import Drawer from './components/Drawer';
+import ViewResume from './components/ViewResume';
 import About from './components/about';
 import Home from './components/Home';
 import Projects from './components/Projects';
@@ -224,7 +225,12 @@ function App() {
                   role="Frontend Developer"
                   email={<a href="mailto:shreyasbb20@gmail.com" style={{ color: '#9c27b0', textDecoration: 'underline' }}>shreyasbb20@gmail.com</a>}
                   onContact={() => scrollToSection('contact')}
-                  onDownloadResume={() => console.log('Download resume clicked')}
+                  onDownloadResume={() => window.open('/Shreyasbbhat Resume.pdf', '_blank')}
+                    resumeLink={<>
+                      <ViewResume />
+                      <br />
+                      <a href="https://github.com/shreyasbrook/collagewebsiteclone.git" target="_blank" rel="noopener noreferrer" style={{ color: '#9c27b0', fontWeight: 600, textDecoration: 'underline' }}>View Repository</a>
+                    </>}
                 />
               </div>
               <div data-section="projects">
