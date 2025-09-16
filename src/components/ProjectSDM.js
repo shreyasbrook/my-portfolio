@@ -61,23 +61,14 @@ export default function ProjectSDM() {
                 variant="outlined"
                 color="primary"
                 component="a"
-                href="https://github.com/Shreyas B Bhat497cs/collegewedsite44"
+                href="https://github.com/shreyasbrook/collagewebsiteclone.git"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 View Repository
               </Button>
             </Stack>
-              <Stack sx={{ mt: 2 }}>
-                <a
-                  href="https://github.com/shreyasbrook/collagewebsiteclone.git"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: '#9c27b0', fontWeight: 600, textDecoration: 'underline', marginTop: 16, display: 'inline-block' }}
-                >
-                  View Repository
-                </a>
-              </Stack>
+            
           </CardContent>
         </Card>
       </Container>

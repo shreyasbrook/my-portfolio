@@ -226,11 +226,7 @@ function App() {
                   email={<a href="mailto:shreyasbb20@gmail.com" style={{ color: '#9c27b0', textDecoration: 'underline' }}>shreyasbb20@gmail.com</a>}
                   onContact={() => scrollToSection('contact')}
                   onDownloadResume={() => window.open('/Shreyasbbhat Resume.pdf', '_blank')}
-                    resumeLink={<>
-                      <ViewResume />
-                      <br />
-                      <a href="https://github.com/shreyasbrook/collagewebsiteclone.git" target="_blank" rel="noopener noreferrer" style={{ color: '#9c27b0', fontWeight: 600, textDecoration: 'underline' }}>View Repository</a>
-                    </>}
+                    resumeLink={null}
                 />
               </div>
               <div data-section="projects">
