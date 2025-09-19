@@ -244,20 +244,6 @@ function App() {
           </Box>
         </main>
       </div>
-      {/* PDF Section at the very bottom */}
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 4, mb: 2 }}>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <a href="/int/6.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-            <button style={{ padding: '8px 20px', background: '#9c27b0', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer' }}>6.pdf</button>
-          </a>
-          <a href="/int/7.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-            <button style={{ padding: '8px 20px', background: '#9c27b0', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer' }}>7.pdf</button>
-          </a>
-          <a href="/int/ime.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-            <button style={{ padding: '8px 20px', background: '#9c27b0', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer' }}>ime.pdf</button>
-          </a>
-        </Box>
-      </Box>
     </ThemeProvider>
   );
 }
